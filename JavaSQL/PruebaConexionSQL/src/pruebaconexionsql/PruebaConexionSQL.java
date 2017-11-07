@@ -30,15 +30,17 @@ public class PruebaConexionSQL {
             "inner join Sorteos as s " +
             "on s.CombinacionGanadora=a.ID " +
             "where a.Tipo='G' and s.Fecha=(select top 1 Fecha from Sorteos)";
+        String consulta2="Select Fecha, Bote from Sorteos";
+        
         try
         {
                cx=new Conexion("jdbc:sqlserver://localhost","pepito","qq");
                sentencia=cx.getConnection().createStatement();
-               res= sentencia.executeQuery(consulta);
-               System.out.println("Combinación Ganadora: ");
+               res= sentencia.executeQuery(consulta2);
+               System.out.println("Fecha Sorteos ----> Bote");
                 while(res.next())
                 {
-                    System.out.print(res.getInt("Numero")+" ");
+                    System.out.println(res.getTimestamp("Fecha")+" ----> " +res.getInt("Bote"));
                 }
                 cx.getConnection().close();
         }catch(SQLException e)

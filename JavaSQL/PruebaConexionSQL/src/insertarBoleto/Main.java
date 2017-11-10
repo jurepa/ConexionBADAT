@@ -5,6 +5,13 @@
  */
 package insertarBoleto;
 
+import java.sql.SQLException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
 /**
  *
  * @author pjarana
@@ -13,7 +20,18 @@ public class Main
 {
     public static void main (String[]args)
     {
-        int []numero=new int[6];
+        Gestora gestora=new Gestora();
+        Conexion cx;
+        int []numero=gestora.leerNumeros();
+        try 
+        {
+            cx=new Conexion("localhost","pepito","qq");
+            gestora.introducirApuesta(numero, cx);
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
         
     }
 }

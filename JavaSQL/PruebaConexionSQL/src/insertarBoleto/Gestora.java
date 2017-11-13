@@ -7,7 +7,9 @@ package insertarBoleto;
 
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -40,7 +42,7 @@ public class Gestora
     public void introducirApuesta(int[]numeros, Conexion cx)
     {
         String execute="EXECUTE dbo.GrabaSencilla  ?,?,?,?,?,?,?,20.0";
-        GregorianCalendar fecha=new GregorianCalendar(2038,05,22,20,0,0);//yyyy,[m]m,[d]d,[h]h,[m]m,[s]s        
+        GregorianCalendar fecha=new GregorianCalendar(2038,4,22,20,0,0);//yyyy,[m]m,[d]d,[h]h,[m]m,[s]s        
         java.sql.Timestamp fechaSorteo=new java.sql.Timestamp(fecha.getTimeInMillis());
         try 
         {
@@ -67,8 +69,19 @@ public class Gestora
                         "ON B.ID=A.ID_Boleto\n" +
                         "INNER JOIN ApuestasNumeros AS AN\n" +
                         "ON A.ID=AN.ID_Apuestas\n" +
-                        "WHERE B.ID=(SELECT MAX(ID) FROM BOLETOS)";
-        
+                        "WHERE B.ID=(SELECT MAX(ID) FROM BOLETOS) AND A.Tipo='S'";
+        try 
+        {
+            Statement sentencia=cx.getConnection().createStatement();
+            ResultSet res=sentencia.executeQuery(consulta);
+            System.out.println("Boleto introducido: ");
+            while(res.next())
+            {
+                System.out.println("ID: "+res.getInt("ID")+", Numero: "+ res.getInt("Numero")+", Tipo apuesta: "+ res.getString("Tipo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Gestora.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

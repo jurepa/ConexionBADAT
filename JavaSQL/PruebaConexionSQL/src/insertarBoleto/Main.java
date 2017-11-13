@@ -25,9 +25,9 @@ public class Main
         int []numero=gestora.leerNumeros();
         try 
         {
-            cx=new Conexion("localhost","pepito","qq");
+            cx=new Conexion("jdbc:sqlserver://localhost","pepito","qq");
             gestora.introducirApuesta(numero, cx);
-            
+            gestora.mostrarApuesta(cx);
         } catch (SQLException ex) {
             System.out.println(ex);
         }

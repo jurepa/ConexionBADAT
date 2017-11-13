@@ -6,9 +6,6 @@
 package insertarBoleto;
 
 import java.sql.SQLException;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -28,10 +25,10 @@ public class Main
             cx=new Conexion("jdbc:sqlserver://localhost","pepito","qq");
             gestora.introducirApuesta(numero, cx);
             gestora.mostrarApuesta(cx);
-        } catch (SQLException ex) {
+            cx.getConnection().close();
+        } catch (SQLException ex) 
+        {
             System.out.println(ex);
-        }
-        
-        
+        } 
     }
 }

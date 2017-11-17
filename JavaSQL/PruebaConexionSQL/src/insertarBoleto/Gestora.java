@@ -20,6 +20,15 @@ import java.util.logging.Logger;
  */
 public class Gestora 
 {
+    /*
+    Descripción: Lee los 6 números que quiere insertar el usuario en un parámetro
+    Prototipo: public int[]leerNumeros()
+    Precondiciones:No hay
+    Entradas: No hay
+    Salidas: Un array de enteros
+    Postcondiciones: El array no estará vacío y contendrá números del 1 al 49
+    E/S: No hay
+    */
     public int [] leerNumeros()
     {
         int []numero=new int[6];
@@ -37,6 +46,15 @@ public class Gestora
         return numero;
     }
     
+    /*
+    Descripción: Este método introduce la apuesta en la BBDD
+    Prototipo: public void introducirApuesta(int[]numeros,Conexion cx)
+    Precondiciones: El array debe ser de tamaño 6 y no estar vacío
+    Entradas: Un array de enteros y un objeto conexion
+    Salidas: No hay
+    Postcondiciones: No hay
+    E/S: No hay
+    */
     public void introducirApuesta(int[]numeros, Conexion cx)
     {
         String execute="EXECUTE dbo.GrabaSencilla  ?,?,?,?,?,?,?,20.0";
@@ -59,6 +77,15 @@ public class Gestora
         }
     }
     
+    /*
+    Descripción: Este método imprime la última apuesta en pantalla
+    Prototipo: public void mostrarApuesta(Conexion cx)
+    Precondiciones: No hay
+    Entradas: Un objeto conexion
+    Salidas: No hay
+    Postcondiciones: No hay
+    E/S: No hay
+    */
     public void mostrarApuesta(Conexion cx)
     {
         String consulta="SELECT B.ID, A.Tipo, AN.Numero\n" +
@@ -70,7 +97,7 @@ public class Gestora
                         "WHERE B.ID=(SELECT MAX(ID) FROM BOLETOS) AND A.Tipo='S'";
         try 
         {
-            Statement sentencia=cx.getConnection().createStatement();
+            Statement sentencia=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
             ResultSet res=sentencia.executeQuery(consulta);
             System.out.println("Boleto introducido: ");
             while(res.next())

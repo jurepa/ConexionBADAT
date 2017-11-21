@@ -18,10 +18,12 @@ public class Main {
     public static void main(String[]args)
     {
         Conexion cx;
-                
+        Gestora gestora=new Gestora();    
         try 
         {
             cx=new Conexion("jdbc:sqlserver://localhost","pepito","qq");
+            gestora.realizarActualizaciones(cx);
+            
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

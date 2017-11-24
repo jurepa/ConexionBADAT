@@ -29,5 +29,6 @@ GO
 DECLARE @FECHA DATE
 SET @Fecha=CURRENT_TIMESTAMP
 EXECUTE dbo.insertMascotasEnfermedades @Fecha,'Borreliosis','GH003'
-
+select * from BI_Actualizaciones
+Select Codigo,Raza,Especie,FechaNacimiento,FechaFallecimiento,Alias,CodigoPropietario from BI_Mascotas
  

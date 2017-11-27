@@ -9,7 +9,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +68,8 @@ public class Gestora
             resultadoTablaMascotas.updateString("CodigoPropietario", codigoPropietario);
             resultadoTablaMascotas.insertRow();
         } catch (SQLException ex) {
-            Logger.getLogger(Gestora.class.getName()).log(Level.SEVERE, null, ex);
+           //Logger.getLogger(Gestora.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.print(ex);
         }
            
     }

@@ -31,16 +31,31 @@ public class GestoraActualizaciones {
                 + "Tipo, AccidenteDefinitivo, NombreAvion, Fabricante, Modelo, "
                 + "Fecha_Fabricacion, Fecha_Entrada, Filas, Asientos_x_Fila, Autonomia "
                 + "FROM EX_Actualizaciones";
+        String consultaAviones="SELECT Matricula, Nombre, ID_Fabricante, Modelo, Fecha_Fabricacion, Fecha_Entrada,Filas,Asientos_x_Fila,Autonomia,Activo "
+                + "FROM AS_Aviones";
+        String insert="INSERT INTO AS_Incidencias (Avion,Latitud,Longitud,Descripcion,Tipo) VALUES(?,?,?,?,?)";
+        String execute="EXECUTE dbo.anularAvion  ?";
+        Avion a=null;
+        Incidencia i=null;
         try 
         {
             Statement sentencia=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement sentenciaInsert=cx.getConnection().prepareStatement(insert);
+            CallableStatement sentenciaExecute=cx.getConnection().prepareCall(execute);
+            Statement sentenciaAviones=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_UPDATABLE);
+            ResultSet rsAviones=sentenciaAviones.executeQuery(consultaAviones);
             ResultSet rsActualizaciones=sentencia.executeQuery(consulta);
             while(rsActualizaciones.next()) //Recorremos la tabla de actualizaciones
             {
+                i=new Incidencia(rsActualizaciones.getString("MatriculaAvion"),
+                        rsActualizaciones.getBigDecimal("Latitud"),
+                        rsActualizaciones.getBigDecimal("Longitud"), 
+                        rsActualizaciones.getString("Descripcion"),
+                        rsActualizaciones.getString("Tipo"));
                 //Si el nombre de avión, fabricante y modelo no son nulos, insertamos
                 if(rsActualizaciones.getString("NombreAvion")!=null && rsActualizaciones.getString("Fabricante")!=null && rsActualizaciones.getString("Modelo")!=null) 
                 {
-                    insertAvion(cx, rsActualizaciones.getString("MatriculaAvion"),//Insertamos el avión
+                    a=new Avion(rsActualizaciones.getString("MatriculaAvion"),//Insertamos el avión
                             rsActualizaciones.getString("NombreAvion"),
                             rsActualizaciones.getString("Fabricante"), 
                             rsActualizaciones.getString("Modelo"),
@@ -49,18 +64,15 @@ public class GestoraActualizaciones {
                             rsActualizaciones.getInt("Filas"),
                             rsActualizaciones.getInt("Asientos_x_Fila"),
                             rsActualizaciones.getInt("Autonomia"));
+                    insertAvion(cx, a,rsAviones);
                 }
                 //Si el avión ha tenido un accidente que no le permite volar más
                 if(rsActualizaciones.getBoolean("AccidenteDefinitivo"))
                 {
-                    darDeBajaAvion(cx, rsActualizaciones.getString("MatriculaAvion")); //Damos de baja el avión
+                    darDeBajaAvion(cx, rsActualizaciones.getString("MatriculaAvion"),sentenciaExecute); //Damos de baja el avión
                 }
                 //Por cada fila de la tabla actualizaciones insertamos en la tabla incidencias
-                insertIncidencia(cx, rsActualizaciones.getString("MatriculaAvion"),
-                        rsActualizaciones.getBigDecimal("Latitud"),
-                        rsActualizaciones.getBigDecimal("Longitud"), 
-                        rsActualizaciones.getString("Descripcion"),
-                        rsActualizaciones.getString("Tipo"));
+                insertIncidencia(cx, i,sentenciaInsert);
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -69,32 +81,27 @@ public class GestoraActualizaciones {
     /*
     Descripción: Este méetodo inserta un avión mediante un ResultSet actualizable en la tabla AS_Aviones
     Precondiciones:No hay
-    Entradas: Un objeto conexion, 3 cadenas, 3 enteros y 2 TimeStamp
+    Entradas: Un objeto conexion, un objeto avion y un objeto ResultSet
     Salidas: No hay
     Postcondiciones: No hay
     */
-    public void insertAvion(Conexion cx,String matricula, String nombre, String nombreFabricante, String modelo, java.sql.Timestamp fechaFabricacion,
-                            java.sql.Timestamp fechaEntrada, int filas, int asientosPorFila, int autonomia)
+    public void insertAvion(Conexion cx,Avion a, ResultSet rsAviones)
     {
-        String consultaAviones="SELECT Matricula, Nombre, ID_Fabricante, Modelo, Fecha_Fabricacion, Fecha_Entrada,Filas,Asientos_x_Fila,Autonomia,Activo "
-                + "FROM AS_Aviones";
-        int idFabricante=buscarIdFabricante(cx, nombreFabricante); //Buscamos el id del fabricante
+        
+        int idFabricante=buscarIdFabricante(cx, a.getFabricante()); //Buscamos el id del fabricante
         try 
-        {   //Insertamos en la tabla AS_Aviones con un resultSet actualizable
-            Statement sentencia=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_UPDATABLE);
-            ResultSet rsAviones=sentencia.executeQuery(consultaAviones);
+        {   //Insertamos en la tabla AS_Aviones con un resultSet actualizable            
             rsAviones.moveToInsertRow();
-            rsAviones.updateString("Matricula", matricula);
-            rsAviones.updateString("Nombre", nombre);
+            rsAviones.updateString("Matricula",a.getMatriculaAvion());
+            rsAviones.updateString("Nombre", a.getNombre());
             rsAviones.updateInt("ID_Fabricante", idFabricante);
-            rsAviones.updateString("Modelo", modelo);
-            rsAviones.updateTimestamp("Fecha_Fabricacion", fechaFabricacion);
-            rsAviones.updateTimestamp("Fecha_Entrada", fechaEntrada);
-            rsAviones.updateInt("Filas", filas);
-            rsAviones.updateInt("Asientos_x_Fila", asientosPorFila);
-            rsAviones.updateInt("Autonomia", autonomia);
-            rsAviones.insertRow();
-            
+            rsAviones.updateString("Modelo", a.getModelo());
+            rsAviones.updateTimestamp("Fecha_Fabricacion", a.getFechaEntrada());
+            rsAviones.updateTimestamp("Fecha_Entrada", a.getFechaFabricacion());
+            rsAviones.updateInt("Filas", a.getFilas());
+            rsAviones.updateInt("Asientos_x_Fila", a.getAsientosXFila());
+            rsAviones.updateInt("Autonomia", a.getAutonomia());
+            rsAviones.insertRow();          
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -126,16 +133,14 @@ public class GestoraActualizaciones {
     /*
     Descripción: Este método se encarga de ejecutar el procedimiento de dar de baja un avion en la base de datos
     Precondiciones: La matricula debe existir en la base de datos
-    Entradas: Un objeto conexion y una cadena
+    Entradas: Un objeto conexion, una cadena y un CallableStatement
     Salidas: No hay
     Postcondiciones: No hay
     */
-    public void darDeBajaAvion(Conexion cx, String matricula)
+    public void darDeBajaAvion(Conexion cx, String matricula,CallableStatement sentencia)
     {
-        String execute="EXECUTE dbo.anularAvion  ?";
         try 
         {
-            CallableStatement sentencia=cx.getConnection().prepareCall(execute);
             sentencia.setString(1,matricula);
             sentencia.executeUpdate();
         } catch (SQLException ex) {
@@ -145,21 +150,20 @@ public class GestoraActualizaciones {
     /*
     Descripción: Este método se encarga de realizar los insert en la tabla Incidencias mediante sentencias preparadas
     Precondiciones: No hay
-    Entradas: Un objeto conexion, 3 cadenas y 2 BigDecimal
+    Entradas: Un objeto conexion, un objeto incidencia y un PreparedStatement
     Salidas: No hay
     Postcondiciones: No hay
     */
-    public void insertIncidencia(Conexion cx,String matricula,java.math.BigDecimal latitud,java.math.BigDecimal longitud,String descripcion,String tipo)
+    public void insertIncidencia(Conexion cx,Incidencia i,PreparedStatement sentencia)
     {
-        String insert="INSERT INTO AS_Incidencias (Avion,Latitud,Longitud,Descripcion,Tipo) VALUES(?,?,?,?,?)";
+        
         try 
-        {
-            PreparedStatement sentencia=cx.getConnection().prepareStatement(insert);
-            sentencia.setString(1,matricula);
-            sentencia.setBigDecimal(2, latitud);
-            sentencia.setBigDecimal(3, longitud);
-            sentencia.setString(4, descripcion);
-            sentencia.setString(5, tipo);
+        {          
+            sentencia.setString(1,i.getMatriculaAvion());
+            sentencia.setBigDecimal(2, i.getLatitud());
+            sentencia.setBigDecimal(3, i.getLongitud());
+            sentencia.setString(4, i.getDescripcion());
+            sentencia.setString(5, i.getTipo());
             sentencia.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);

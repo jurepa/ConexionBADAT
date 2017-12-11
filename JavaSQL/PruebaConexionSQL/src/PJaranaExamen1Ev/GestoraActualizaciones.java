@@ -35,16 +35,19 @@ public class GestoraActualizaciones {
                 + "FROM AS_Aviones";
         String insert="INSERT INTO AS_Incidencias (Avion,Latitud,Longitud,Descripcion,Tipo) VALUES(?,?,?,?,?)";
         String execute="EXECUTE dbo.anularAvion  ?";
+        String consultaFabricantes="SELECT ID_Fabricante FROM AS_Fabricantes WHERE Nombre=?";
         Avion a=null;
         Incidencia i=null;
         try 
         {
             Statement sentencia=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement sentenciaIDFab=cx.getConnection().prepareStatement(consultaFabricantes);
             PreparedStatement sentenciaInsert=cx.getConnection().prepareStatement(insert);
             CallableStatement sentenciaExecute=cx.getConnection().prepareCall(execute);
             Statement sentenciaAviones=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_UPDATABLE);
             ResultSet rsAviones=sentenciaAviones.executeQuery(consultaAviones);
             ResultSet rsActualizaciones=sentencia.executeQuery(consulta);
+            ResultSet rsIDFab=sentenciaIDFab.executeQuery(consultaFabricantes);
             while(rsActualizaciones.next()) //Recorremos la tabla de actualizaciones
             {
                 i=new Incidencia(rsActualizaciones.getString("MatriculaAvion"),
@@ -64,7 +67,7 @@ public class GestoraActualizaciones {
                             rsActualizaciones.getInt("Filas"),
                             rsActualizaciones.getInt("Asientos_x_Fila"),
                             rsActualizaciones.getInt("Autonomia"));
-                    insertAvion(cx, a,rsAviones);
+                    insertAvion(cx, a,rsAviones,sentenciaIDFab);
                 }
                 //Si el avión ha tenido un accidente que no le permite volar más
                 if(rsActualizaciones.getBoolean("AccidenteDefinitivo"))
@@ -85,10 +88,10 @@ public class GestoraActualizaciones {
     Salidas: No hay
     Postcondiciones: No hay
     */
-    public void insertAvion(Conexion cx,Avion a, ResultSet rsAviones)
+    public void insertAvion(Conexion cx,Avion a, ResultSet rsAviones, PreparedStatement sentenciaIDFab)
     {
         
-        int idFabricante=buscarIdFabricante(cx, a.getFabricante()); //Buscamos el id del fabricante
+        int idFabricante=buscarIdFabricante(cx, a.getFabricante(),sentenciaIDFab); //Buscamos el id del fabricante
         try 
         {   //Insertamos en la tabla AS_Aviones con un resultSet actualizable            
             rsAviones.moveToInsertRow();
@@ -113,12 +116,13 @@ public class GestoraActualizaciones {
     Salidas: Un entero
     Postcondiciones: Devuelve 0 si ha ocurrido algun fallo o no ha encontrado el fabricante
     */
-    public int buscarIdFabricante(Conexion cx, String nombreFabricante)
+    public int buscarIdFabricante(Conexion cx, String nombreFabricante, PreparedStatement sentencia)
     {
-        String consultaFabricantes="SELECT ID_Fabricante FROM AS_Fabricantes WHERE Nombre='"+nombreFabricante+"'";
+        String consultaFabricantes="SELECT ID_Fabricante FROM AS_Fabricantes WHERE Nombre=?";
         int id=0;
         try {
-            Statement sentencia=cx.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+            
+            sentencia.setString(1,nombreFabricante);
             ResultSet rsIDFab=sentencia.executeQuery(consultaFabricantes);
             while(rsIDFab.next())
             {
@@ -155,8 +159,7 @@ public class GestoraActualizaciones {
     Postcondiciones: No hay
     */
     public void insertIncidencia(Conexion cx,Incidencia i,PreparedStatement sentencia)
-    {
-        
+    {       
         try 
         {          
             sentencia.setString(1,i.getMatriculaAvion());

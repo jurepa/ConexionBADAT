@@ -87,5 +87,14 @@ public class Libro
         this.precio = precio;
     }
     
+    public void addAutor(String autor)
+    {
+        this.autores.add(autor);
+    }
     
+    @Override
+    public String toString()
+    {
+        return this.titulo+", "+this.autores.toString()+", "+this.lenguaje+", "+this.titulo+", "+this.precio+", "+this.year;
+    }
 }

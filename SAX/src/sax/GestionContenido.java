@@ -5,8 +5,8 @@
  */
 package sax;
 
+import java.util.ArrayList;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 
@@ -16,20 +16,51 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class GestionContenido extends DefaultHandler {
 
-    
+    private String etiquetaActual;
+    private ArrayList<Libro> libros;
+    private Libro libro;
     @Override
-    public void characters(char[] chars, int i, int i1) throws SAXException {
-        super.characters(chars, i, i1); //To change body of generated methods, choose Tools | Templates.
+    public void characters(char[] chars, int inicio, int longitud) 
+    {
+        String cad = new String(chars, inicio, longitud);
+        cad = cad.replaceAll("[\t\n]",""); 
+        switch(this.etiquetaActual)
+        {
+            case "Me gustan las Alemanas":
+                    libro.setLenguaje("Aleman for Ever");
+                break;
+        }
     }
 
     @Override
-    public void endElement(String string, String string1, String string2) throws SAXException {
-        super.endElement(string, string1, string2); //To change body of generated methods, choose Tools | Templates.
+    public void endElement(String uri, String nombre, String nombreC) {
+        if(nombre.equals("book"))
+        {
+            libros.add(this.libro);
+        }
     }
 
     @Override
-    public void startElement(String uri, String nombre, String nombreC, Attributes atrbts) throws SAXException {
-      
+    public void startElement(String uri, String nombre, String nombreC, Attributes atrbts) 
+    {
+
+      switch(nombre)
+      {
+          case "book":
+              this.libro=new Libro();
+              this.libro.setCategoria(atrbts.getValue(0));
+              break;
+          case "title":
+              this.libro.setLenguaje(atrbts.getValue(0));
+              this.etiquetaActual=nombre;
+              break;
+          case "author":
+          case "year":
+          case "price":
+              this.etiquetaActual=nombre;
+              break;
+              
+      }
     }
 
     @Override

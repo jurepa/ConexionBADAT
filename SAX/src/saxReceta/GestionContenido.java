@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sax;
+package saxReceta;
 
+import sax.*;
 import java.util.ArrayList;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,6 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class GestionContenido extends DefaultHandler {
 
+    private String etiquetaActual;
     private ArrayList<Libro> libros;
     private Libro libro;
     private String contenido;
@@ -83,6 +85,7 @@ public class GestionContenido extends DefaultHandler {
                   break;
           case "title":
               this.libro.setLenguaje(atrbts.getValue(0));
+              this.etiquetaActual=nombre;
                   break; 
       }
     }

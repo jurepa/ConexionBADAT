@@ -19,8 +19,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class GestionContenido extends DefaultHandler {
 
     private String etiquetaActual;
-    private ArrayList<Libro> libros;
-    private Libro libro;
+    private Actualizacion actualizacion;
     private String contenido;
     @Override
     public void characters(char[] chars, int inicio, int longitud) 

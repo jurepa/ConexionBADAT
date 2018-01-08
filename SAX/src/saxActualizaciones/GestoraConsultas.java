@@ -1,5 +1,3 @@
-package saxActualizaciones;
-
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +18,7 @@ public class GestoraConsultas {
     public GestoraConsultas(){
         conexion=new GestoraConexion();
         gestoraSentencias=new GestoraSentencias();
-        //gestoraSentencias.preparaSentencias();//si estos dos metodos los modulo quizï¿½s pueda abrir la conexiï¿½n una ï¿½nica vez sin necesidad de hacerlo en GestoraSentencias
+        //gestoraSentencias.preparaSentencias();//si estos dos metodos los modulo quizás pueda abrir la conexión una única vez sin necesidad de hacerlo en GestoraSentencias
         //resultSetAct=gestoraSentencias.getResultSetActualizable();
     }
     
@@ -77,77 +75,7 @@ public class GestoraConsultas {
         }      
         return resultSet;
     }
-    
-    //CAMBIO ESTE METODO A LA GestoraMain CON EL FIN DE EVITAR ACOPLAMIENTO
-     /*
-    Proposito: Recorre el ResultSet de EX_Actualizaciones y dependidendo del estado de las 
-    		   columnas NombreAvion y Fabricante realizaremos inserciones en la tabla AS_Incidencias,
-    		   AS_Aviones y/o daremos de baja a un avion/es y los futuros vuelos asociados si ha tenido
-    		   un Accidente Definitivo
-    Precondiciones: No hay
-    Entradas: No hay
-    Salidas: No hay
-    Postcondiciones: Se ha actualizado la base de datos
-    */
-    /*public Integer[] actualizarDB(){
-    	Integer[] tablaFilasAfectadas={0,0,0};
-    	ResultSet resultSet=getResulSetActualizaciones();
-        Incidencia incidencia=new Incidencia();
-        Avion avion=new Avion();
-               
-        if(resultSet!=null){
-            try {            	
-            	conexion.getConnect().setAutoCommit(false);
-                while(resultSet.next()){
-            	
-                	//Damos los datos al avion
-                	avion.setNombre(resultSet.getString("NombreAvion"));
-                	avion.setMatricula(resultSet.getString("MatriculaAvion"));                	
-                	if(resultSet.getString("Fabricante")!=null){
-                		avion.setIdFabricante(getIdFabricante(resultSet.getString("Fabricante")));
-                	}
-                	avion.setModelo(resultSet.getString("Modelo"));
-                	avion.setFechaFabricacion(resultSet.getDate("Fecha_Fabricacion"));
-                	avion.setFechaEntrada(resultSet.getDate("Fecha_Entrada"));                	
-                	avion.setFilas(resultSet.getInt("Filas"));               	
-                	avion.setAsientosXFila(resultSet.getInt("Asientos_x_Fila"));
-                	avion.setAutonomia(resultSet.getInt("Autonomia"));
-                	if(resultSet.getBoolean("AccidenteDefinitivo")) {
-                		avion.setActivo("N");
-                	}else {
-                		avion.setActivo("S");
-                	}
-                	
-                	//Damos los datos a la incidencia
-                	incidencia.setMatriculaAvion(avion.getMatricula());
-                	incidencia.setLatitud(resultSet.getBigDecimal("Latitud"));
-                	incidencia.setLongitud(resultSet.getBigDecimal("Longitud"));
-                	incidencia.setDescripcion(resultSet.getString("Descripcion"));
-                	incidencia.setTipo(resultSet.getString("Tipo"));             	
-                	
-                    //Si los datos del avion estan a null excepto la matricula es que el avion ya esta registrado
-                	if(avion.getNombre()!=null && avion.getIdFabricante()!=-1) {
-            			//Insertamos nuevo avion
-                		tablaFilasAfectadas[0]=tablaFilasAfectadas[0]+insertInToAviones(avion);               	
-                	}                	
-                	//Insertamos la incidencia
-                	tablaFilasAfectadas[1]=tablaFilasAfectadas[1]+insertInToIncidencias(incidencia);      
-            		if(avion.getActivo()=="N") {
-                		//Y efectuarï¿½amos la baja con el procedimiento del ej 1
-            			tablaFilasAfectadas[2]=tablaFilasAfectadas[2]+executeBajaAvion(avion.getMatricula());
-            		}
-                }//fin mientras
-                
-               //Eliminamos los  datos de la tabla EX_Actualizaciones
-               deleteActualizaciones();
-               
-            } catch (SQLException e) {        	
-            	System.out.println(e.getMessage()+"ES AQUI actulizarDB");
-            }
-        }//fin si
-        return tablaFilasAfectadas;
-    }*/
-    
+        
     
     /*
     Proposito: Realiza una insercion en la tabla AS_Aviones mediante un resultSet actualizable
@@ -162,18 +90,20 @@ public class GestoraConsultas {
         	//conexion.getConnect().setAutoCommit(false);
         	if(this.resultSetAct.next()){        				
         		
-        		//Posicionamos el cursor en la fila de inserciï¿½n
+        		//Posicionamos el cursor en la fila de inserción
         		this.resultSetAct.moveToInsertRow();
         		
         		//Cambiamos los datos para esa fila
-        		this.resultSetAct.updateString("Matricula", avion.getMatriculaAvion());
+        		this.resultSetAct.updateString("Matricula", avion.getMatricula());
         		this.resultSetAct.updateString("Nombre", avion.getNombre());
+        		this.resultSetAct.updateShort("ID_Fabricante", getIdFabricante(avion.getNombreFabricante()));
         		this.resultSetAct.updateString("Modelo", avion.getModelo());
-        		this.resultSetAct.updateTimestamp("Fecha_Fabricacion", avion.getFechaFabricacion());        		
-        		this.resultSetAct.updateTimestamp("Fecha_Entrada", avion.getFechaEntrada());
+        		this.resultSetAct.updateDate("Fecha_Fabricacion", avion.getFechaFabricacion());        		
+        		this.resultSetAct.updateDate("Fecha_Entrada", avion.getFechaEntrada());
         		this.resultSetAct.updateInt("Filas", avion.getFilas());
         		this.resultSetAct.updateInt("Asientos_x_Fila", avion.getAsientosXFila());
         		this.resultSetAct.updateInt("Autonomia", avion.getAutonomia());
+        		this.resultSetAct.updateString("Activo", avion.getActivo());
 
         		//Y la insertamos
         		this.resultSetAct.insertRow();
@@ -182,8 +112,12 @@ public class GestoraConsultas {
         	}
         }catch(SQLException e){
         	System.out.println(e.getMessage());
-            //Si algo falla hacemos rollback
-            conexion.getConnect().rollback();
+        	//Si algo falla hacemos rollback
+        	try {
+				conexion.getConnect().rollback();
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
         }
         return filasAfectadas;
     }
@@ -212,20 +146,30 @@ public class GestoraConsultas {
     }   
        
     /*
-    Proposito: Dada un matricula de avion marca a ï¿½ste como no activo en la base de datos
+    Proposito: Dada un matricula de avion marca a éste como no activo en la base de datos
     Precondiciones: No hay
     Entradas: String matricula del avion
     Salidas: Un entero
     Postcondiciones: Se ha marcado el avion como no activo en la base de datos y se eliminan los futuros 
     			     vuelos asociados. 
-    			     El entero que serï¿½ 1 si la baja se realizï¿½ correctamente y 0 sino
+    			     El entero que será 1 si la baja se realizó correctamente y 0 sino
     */
     public int executeBajaAvion(String matricula) {
     	int bajaCorrecta=0;
-        gestoraSentencias.getCallableStatementExecBajaAvion().setString(1, matricula); //Si algo falla hacemos rollback
-        gestoraSentencias.getCallableStatementExecBajaAvion().executeUpdate();
-        bajaCorrecta=1;
-        conexion.getConnect().commit();//No estoy seguro de si al ejecutar el procedimiento almacenado deberï¿½a hacer commit aquï¿½
+    	try {			
+			gestoraSentencias.getCallableStatementExecBajaAvion().setString(1, matricula);		
+			gestoraSentencias.getCallableStatementExecBajaAvion().executeUpdate();	
+			bajaCorrecta=1;
+			conexion.getConnect().commit();//No estoy seguro de si al ejecutar el procedimiento almacenado debería hacer commit aquí
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			//Si algo falla hacemos rollback
+        	try {
+				conexion.getConnect().rollback();
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
+        }
     	return bajaCorrecta;
     }
         
@@ -238,13 +182,24 @@ public class GestoraConsultas {
     */
     public int insertInToIncidencias(Incidencia incidencia){
         int filasAfectadas=0;
-        gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(1, incidencia.getMatriculaAvion()); //Si algo falla hacemos rollback
-        gestoraSentencias.getPreparedstatementInsertInToIncidencias().setBigDecimal(2, incidencia.getLatitud());
-        gestoraSentencias.getPreparedstatementInsertInToIncidencias().setBigDecimal(3, incidencia.getLongitud());
-        gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(4, incidencia.getDescripcion());
-        gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(5, incidencia.getTipo());
-        filasAfectadas=gestoraSentencias.getPreparedstatementInsertInToIncidencias().executeUpdate();
-        conexion.getConnect().commit();
+        try{              	
+            gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(1, incidencia.getMatriculaAvion());
+            gestoraSentencias.getPreparedstatementInsertInToIncidencias().setBigDecimal(2, incidencia.getLatitud());
+            gestoraSentencias.getPreparedstatementInsertInToIncidencias().setBigDecimal(3, incidencia.getLongitud());
+            gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(4, incidencia.getDescripcion());
+            gestoraSentencias.getPreparedstatementInsertInToIncidencias().setString(5, incidencia.getTipo());
+            
+            filasAfectadas=gestoraSentencias.getPreparedstatementInsertInToIncidencias().executeUpdate();
+            conexion.getConnect().commit();
+        }catch(SQLException e){      	
+        	System.out.println(e.getMessage());
+        	//Si algo falla hacemos rollback
+        	try {
+				conexion.getConnect().rollback();
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
+        }
         return filasAfectadas;
     }
   
@@ -265,8 +220,12 @@ public class GestoraConsultas {
             conexion.getConnect().commit();
         } catch (SQLException e) {
         	System.out.println(e.getMessage());   
-            //Si algo falla hacemos rollback
-            conexion.getConnect().rollback();
+        	//Si algo falla hacemos rollback
+        	try {
+				conexion.getConnect().rollback();
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
         }
     }
 

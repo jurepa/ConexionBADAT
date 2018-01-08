@@ -1,84 +1,95 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package saxActualizaciones;
-
-import java.math.BigDecimal;
-
-/**
- *
- * @author pjarana
- * insertIncidencia(cx, rsActualizaciones.getString("MatriculaAvion"),
-                        rsActualizaciones.getBigDecimal("Latitud"),
-                        rsActualizaciones.getBigDecimal("Longitud"), 
-                        rsActualizaciones.getString("Descripcion"),
-                        rsActualizaciones.getString("Tipo"));
- */
+ * Propiedades básicas:
+ * 		Matricula avion: Cadena, Consultable, Modificable
+ * 		Descripcion: Cadena, Consultable, Modificable
+ * 		Tipo: Cadena, Consultable, Modificable
+ * 
+ * Propiedades Agregadas:
+ * 		Latitud: java.math.BigDecimal
+ * 		Longitud: java.math.BigDecimal
+ * 
+ * */
 public class Incidencia {
-    
-    private String matriculaAvion;
-    private BigDecimal latitud;
-    private BigDecimal longitud;
-    private String descripcion;
-    private String tipo;
+	
+	//Propiedades
+	private String matriculaAvion;
+	private java.math.BigDecimal latitud;
+	private java.math.BigDecimal longitud;
+	private String descripcion;
+	private String tipo;
+	
+	
+	//Contructores
+	public Incidencia() {
+		matriculaAvion="";
+		latitud=new java.math.BigDecimal(0.0);
+		longitud=new java.math.BigDecimal(0.0);
+		descripcion="";
+		tipo="";
+	}
+	
+	public Incidencia(String matriculaAvion, java.math.BigDecimal latitud, java.math.BigDecimal longitud, String descripcion, String tipo){
+		this.matriculaAvion=matriculaAvion;
+		this.latitud=latitud;
+		this.longitud=longitud;
+		this.descripcion=descripcion;
+		this.tipo=tipo;
+	}
 
-    public Incidencia() {
-        this.matriculaAvion="";
-        this.latitud=null;
-        this.longitud=null;
-        this.descripcion="";
-        this.tipo="";
-    }
+	//Getters and Setters
+	public String getMatriculaAvion() {
+		return matriculaAvion;
+	}
 
-    public Incidencia(String matriculaAvion, BigDecimal latitud, BigDecimal longitud, String descripcion, String tipo) {
-        this.matriculaAvion = matriculaAvion;
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.descripcion = descripcion;
-        this.tipo = tipo;
-    }
 
-    public String getMatriculaAvion() {
-        return matriculaAvion;
-    }
+	public void setMatriculaAvion(String matriculaAvion) {
+		this.matriculaAvion = matriculaAvion;
+	}
 
-    public void setMatriculaAvion(String matriculaAvion) {
-        this.matriculaAvion = matriculaAvion;
-    }
 
-    public BigDecimal getLatitud() {
-        return latitud;
-    }
+	public java.math.BigDecimal getLatitud() {
+		return latitud;
+	}
 
-    public void setLatitud(BigDecimal latitud) {
-        this.latitud = latitud;
-    }
 
-    public BigDecimal getLongitud() {
-        return longitud;
-    }
+	public void setLatitud(java.math.BigDecimal latitud) {
+		this.latitud = latitud;
+	}
 
-    public void setLongitud(BigDecimal longitud) {
-        this.longitud = longitud;
-    }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public java.math.BigDecimal getLongitud() {
+		return longitud;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
-    public String getTipo() {
-        return tipo;
-    }
+	public void setLongitud(java.math.BigDecimal longitud) {
+		this.longitud = longitud;
+	}
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
-    
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

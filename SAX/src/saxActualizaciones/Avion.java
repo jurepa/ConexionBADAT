@@ -1,123 +1,168 @@
+import java.util.Calendar;
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package saxActualizaciones;
-
-import java.sql.Timestamp;
-
-/**
- *
- * @author pjarana
+ * Propiedades Básicas:
+ * 		Matricula: Cadena, Consultable, Modificable
+ * 		Nombre: Cadena, Consultable, Modificable
+ * 		idFabricante: short, Consultable, Modificable
+ * 		Modelo: Cadena, Consultable, Modificable
+ * 		Filas: short, Consultable, Modificable
+ * 		Asientos por fila: short 
+ * 		Autonomia: entero, Consultable, Modificable
+ * 		Activo: Booleano, Consultable, Modificable
  * 
- */
+ * 
+ * Propiedades Agregadas:
+ * 		Fecha Fabricacion: java.sql.Date, Consultable, Modificable
+ * 		Fecha Entrada: java.sql.Date, Consultable, Modificable
+ * 
+ *
+*/
+
 public class Avion {
-    private String matriculaAvion;
-    private String nombre;
-    private String fabricante;
-    private String modelo;
-    private java.sql.Timestamp fechaEntrada;
-    private java.sql.Timestamp fechaFabricacion;
-    private int filas;
-    private int asientosXFila;
-    private int autonomia;
+	
+	//Propiedades
+	private String matricula;
+	private String nombre;
+	private String nombreFabricante;
+	private String modelo; 
+	private java.sql.Date fechaFabricacion;
+	private java.sql.Date fechaEntrada;
+	private Integer filas;
+	private Integer asientosXFila;
+	private Integer autonomia;
+	private String activo;
+	
+	//Contructores
+	public Avion() {
+		matricula="";
+		nombre="";
+		nombreFabricante="";
+		modelo="";
+		fechaFabricacion=new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+		fechaEntrada=new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+		filas=0;
+		asientosXFila=0;
+		autonomia=0;
+		activo="";		
+	}
+	
+	public Avion(String matricula, String nombre, String nombreFabricante, String modelo, java.sql.Date fechaFabricacion,
+			     java.sql.Date fechaEntrada, Integer filas, Integer asientosXFila, Integer autonomia, String activo)
+	{
+		this.matricula=matricula;
+		this.nombre=nombre;
+		this.nombreFabricante=nombreFabricante;
+		this.modelo=modelo;
+		this.fechaFabricacion=fechaFabricacion;
+		this.fechaEntrada=fechaEntrada;
+		this.filas=filas;
+		this.asientosXFila=asientosXFila;
+		this.autonomia=autonomia;
+		this.activo=activo;
+	}
 
-    public Avion() {
-        this.nombre="";
-        this.fabricante="";
-        this.modelo="";
-        this.fechaEntrada=new java.sql.Timestamp(2);
-        this.fechaFabricacion=new java.sql.Timestamp(1);
-        this.filas=0;
-        this.asientosXFila=0;
-        this.autonomia=0;
-    }
+	
+	//Getters and Setters
+	public String getMatricula() {
+		return matricula;
+	}
 
-    public Avion(String matriculaAvion, String nombre, String fabricante, String modelo, Timestamp fechaEntrada, Timestamp fechaFabricacion, int filas, int asientosXFila, int autonomia) {
-        this.matriculaAvion = matriculaAvion;
-        this.nombre = nombre;
-        this.fabricante = fabricante;
-        this.modelo = modelo;
-        this.fechaEntrada = fechaEntrada;
-        this.fechaFabricacion = fechaFabricacion;
-        this.filas = filas;
-        this.asientosXFila = asientosXFila;
-        this.autonomia = autonomia;
-    }
 
-    public String getMatriculaAvion() {
-        return matriculaAvion;
-    }
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
 
-    public void setMatriculaAvion(String matriculaAvion) {
-        this.matriculaAvion = matriculaAvion;
-    }
-    
 
-    public String getNombre() {
-        return nombre;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
-    public String getFabricante() {
-        return fabricante;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
 
-    public String getModelo() {
-        return modelo;
-    }
+	public String getNombreFabricante() {
+		return nombreFabricante;
+	}
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
 
-    public Timestamp getFechaEntrada() {
-        return fechaEntrada;
-    }
+	public void setNombreFabricante(String nombreFabricante) {
+		this.nombreFabricante = nombreFabricante;
+	}
 
-    public void setFechaEntrada(Timestamp fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
-    }
 
-    public Timestamp getFechaFabricacion() {
-        return fechaFabricacion;
-    }
+	public String getModelo() {
+		return modelo;
+	}
 
-    public void setFechaFabricacion(Timestamp fechaFabricacion) {
-        this.fechaFabricacion = fechaFabricacion;
-    }
 
-    public int getFilas() {
-        return filas;
-    }
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
 
-    public void setFilas(int filas) {
-        this.filas = filas;
-    }
 
-    public int getAsientosXFila() {
-        return asientosXFila;
-    }
+	public java.sql.Date getFechaFabricacion() {
+		return fechaFabricacion;
+	}
 
-    public void setAsientosXFila(int asientosXFila) {
-        this.asientosXFila = asientosXFila;
-    }
 
-    public int getAutonomia() {
-        return autonomia;
-    }
+	public void setFechaFabricacion(java.sql.Date fechaFabricacion) {
+		this.fechaFabricacion = fechaFabricacion;
+	}
 
-    public void setAutonomia(int autonomia) {
-        this.autonomia = autonomia;
-    }
-    
-    
+
+	public java.sql.Date getFechaEntrada() {
+		return fechaEntrada;
+	}
+
+
+	public void setFechaEntrada(java.sql.Date fechaEntrada) {
+		this.fechaEntrada = fechaEntrada;
+	}
+
+
+	public Integer getFilas() {
+		return filas;
+	}
+
+
+	public void setFilas(Integer filas) {
+		this.filas = filas;
+	}
+
+
+	public Integer getAsientosXFila() {
+		return asientosXFila;
+	}
+
+
+	public void setAsientosXFila(Integer asientosXFila) {
+		this.asientosXFila = asientosXFila;
+	}
+
+
+	public Integer getAutonomia() {
+		return autonomia;
+	}
+
+
+	public void setAutonomia(Integer autonomia) {
+		this.autonomia = autonomia;
+	}
+
+
+	public String getActivo() {
+		return activo;
+	}
+
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+	
+	
+	
 }

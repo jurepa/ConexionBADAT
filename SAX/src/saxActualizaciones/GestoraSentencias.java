@@ -47,7 +47,7 @@ public class GestoraSentencias {
 			System.out.println(e.getMessage());
 		}
 		return resultSetAct;
-	}
+	}//ESTE RESULTSET SERVIA PARA HACER LA INSERCION CON RESULTSET ACTUALIZABLE EN AS_AVIONES
 
     /*
     Proposito: Prepara las sentencias

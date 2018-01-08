@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="saxActualizaciones">
+  <ClassDiagramComponents>
+    <Class name="Actualizacion" package="" visibility="public" xPosition="845.0" yPosition="823.0">
+      <Fields>
+        <Field name="incidencia" type="Incidencia" visibility="private"/>
+        <Field name="avion" type="Avion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIncidencia" returnType="Incidencia" visibility="public"/>
+        <Method name="setIncidencia" returnType="void" visibility="public">
+          <Argument type="Incidencia" name="incidencia"/>
+        </Method>
+        <Method name="getAvion" returnType="Avion" visibility="public"/>
+        <Method name="setAvion" returnType="void" visibility="public">
+          <Argument type="Avion" name="avion"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Avion" package="" visibility="public" xPosition="-437.0" yPosition="412.0">
+      <Fields>
+        <Field name="matricula" type="String" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="nombreFabricante" type="String" visibility="private"/>
+        <Field name="modelo" type="String" visibility="private"/>
+        <Field name="fechaFabricacion" type="java.sql.Date" visibility="private"/>
+        <Field name="fechaEntrada" type="java.sql.Date" visibility="private"/>
+        <Field name="filas" type="Integer" visibility="private"/>
+        <Field name="asientosXFila" type="Integer" visibility="private"/>
+        <Field name="autonomia" type="Integer" visibility="private"/>
+        <Field name="activo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="matricula"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="nombreFabricante"/>
+          <Argument type="String" name="modelo"/>
+          <Argument type="java.sql.Date" name="fechaFabricacion"/>
+          <Argument type="java.sql.Date" name="fechaEntrada"/>
+          <Argument type="Integer" name="filas"/>
+          <Argument type="Integer" name="asientosXFila"/>
+          <Argument type="Integer" name="autonomia"/>
+          <Argument type="String" name="activo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getMatricula" returnType="String" visibility="public"/>
+        <Method name="setMatricula" returnType="void" visibility="public">
+          <Argument type="String" name="matricula"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getNombreFabricante" returnType="String" visibility="public"/>
+        <Method name="setNombreFabricante" returnType="void" visibility="public">
+          <Argument type="String" name="nombreFabricante"/>
+        </Method>
+        <Method name="getModelo" returnType="String" visibility="public"/>
+        <Method name="setModelo" returnType="void" visibility="public">
+          <Argument type="String" name="modelo"/>
+        </Method>
+        <Method name="getFechaFabricacion" returnType="java.sql.Date" visibility="public"/>
+        <Method name="setFechaFabricacion" returnType="void" visibility="public">
+          <Argument type="java.sql.Date" name="fechaFabricacion"/>
+        </Method>
+        <Method name="getFechaEntrada" returnType="java.sql.Date" visibility="public"/>
+        <Method name="setFechaEntrada" returnType="void" visibility="public">
+          <Argument type="java.sql.Date" name="fechaEntrada"/>
+        </Method>
+        <Method name="getFilas" returnType="Integer" visibility="public"/>
+        <Method name="setFilas" returnType="void" visibility="public">
+          <Argument type="Integer" name="filas"/>
+        </Method>
+        <Method name="getAsientosXFila" returnType="Integer" visibility="public"/>
+        <Method name="setAsientosXFila" returnType="void" visibility="public">
+          <Argument type="Integer" name="asientosXFila"/>
+        </Method>
+        <Method name="getAutonomia" returnType="Integer" visibility="public"/>
+        <Method name="setAutonomia" returnType="void" visibility="public">
+          <Argument type="Integer" name="autonomia"/>
+        </Method>
+        <Method name="getActivo" returnType="String" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="String" name="activo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ConductorSAX" package="" visibility="public" xPosition="48.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestionContenido" package="" visibility="public" xPosition="695.0" yPosition="269.0">
+      <Fields>
+        <Field name="actualizacion" type="Actualizacion" visibility="private"/>
+        <Field name="contenidoEtiqueta" type="String" visibility="private"/>
+        <Field name="gestoraConsultas" type="GestoraConsultas" visibility="private"/>
+        <Field name="gestoraActualizacion" type="GestoraActualizacion" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="startDocument" returnType="void" visibility="public"/>
+        <Method name="endDocument" returnType="void" visibility="public"/>
+        <Method name="startElement" returnType="void" visibility="public">
+          <Argument type="String" name="uri"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="nombreC"/>
+          <Argument type="Attributes" name="att"/>
+        </Method>
+        <Method name="endElement" returnType="void" visibility="public">
+          <Argument type="String" name="uri"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="nombreC"/>
+        </Method>
+        <Method name="characters" returnType="void" visibility="public">
+          <Argument type="char[]" name="ch"/>
+          <Argument type="int" name="inicio"/>
+          <Argument type="int" name="longitud"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestoraActualizacion" package="" visibility="public" xPosition="1131.0" yPosition="74.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="actualizarDB" returnType="void" visibility="public">
+          <Argument type="GestoraConsultas" name="gestoraConsultas"/>
+          <Argument type="Actualizacion" name="actualizacion"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestoraConexion" package="" visibility="public" xPosition="1702.0" yPosition="94.0">
+      <Fields>
+        <Field name="conexionBaseDatos" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="connect" returnType="void" visibility="public"/>
+        <Method name="close" returnType="void" visibility="public"/>
+        <Method name="getConnect" returnType="Connection" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GestoraConsultas" package="" visibility="public" xPosition="1662.0" yPosition="347.0">
+      <Fields>
+        <Field name="conexion" type="GestoraConexion" visibility="private"/>
+        <Field name="gestoraSentencias" type="GestoraSentencias" visibility="private"/>
+        <Field name="resultSetAct" type="ResultSet" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getGestoraConexion" returnType="GestoraConexion" visibility="public"/>
+        <Method name="getGestoraSentencias" returnType="GestoraSentencias" visibility="public"/>
+        <Method name="preparaSentencias" returnType="void" visibility="public"/>
+        <Method name="cargaResultSetActualizable" returnType="void" visibility="public"/>
+        <Method name="getResulSetActualizaciones" returnType="ResultSet" visibility="public"/>
+        <Method name="insertInToAviones" returnType="int" visibility="public">
+          <Argument type="Avion" name="avion"/>
+        </Method>
+        <Method name="getIdFabricante" returnType="short" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="executeBajaAvion" returnType="int" visibility="public">
+          <Argument type="String" name="matricula"/>
+        </Method>
+        <Method name="insertInToIncidencias" returnType="int" visibility="public">
+          <Argument type="Incidencia" name="incidencia"/>
+        </Method>
+        <Method name="deleteActualizaciones" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GestoraSentencias" package="" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="preparedStatementSelectIdFabricante" type="PreparedStatement" visibility="private"/>
+        <Field name="callableStatementExecBajaAvion" type="CallableStatement" visibility="private"/>
+        <Field name="preparedstatementInsertInToIncidencias" type="PreparedStatement" visibility="private"/>
+        <Field name="sentenciaResultSetActualizable" type="Statement" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getPreparedStatementSelectIdFabricante" returnType="PreparedStatement" visibility="public"/>
+        <Method name="getCallableStatementExecBajaAvion" returnType="CallableStatement" visibility="public"/>
+        <Method name="getPreparedstatementInsertInToIncidencias" returnType="PreparedStatement" visibility="public"/>
+        <Method name="getSentenciaResultSetActualizable" returnType="Statement" visibility="public"/>
+        <Method name="getResultSetActualizable" returnType="ResultSet" visibility="public"/>
+        <Method name="preparaSentencias" returnType="void" visibility="public">
+          <Argument type="GestoraConexion" name="conexion"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Incidencia" package="" visibility="public" xPosition="1209.0" yPosition="728.0">
+      <Fields>
+        <Field name="matriculaAvion" type="String" visibility="private"/>
+        <Field name="latitud" type="java.math.BigDecimal" visibility="private"/>
+        <Field name="longitud" type="java.math.BigDecimal" visibility="private"/>
+        <Field name="descripcion" type="String" visibility="private"/>
+        <Field name="tipo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="matriculaAvion"/>
+          <Argument type="java.math.BigDecimal" name="latitud"/>
+          <Argument type="java.math.BigDecimal" name="longitud"/>
+          <Argument type="String" name="descripcion"/>
+          <Argument type="String" name="tipo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getMatriculaAvion" returnType="String" visibility="public"/>
+        <Method name="setMatriculaAvion" returnType="void" visibility="public">
+          <Argument type="String" name="matriculaAvion"/>
+        </Method>
+        <Method name="getLatitud" returnType="java.math.BigDecimal" visibility="public"/>
+        <Method name="setLatitud" returnType="void" visibility="public">
+          <Argument type="java.math.BigDecimal" name="latitud"/>
+        </Method>
+        <Method name="getLongitud" returnType="java.math.BigDecimal" visibility="public"/>
+        <Method name="setLongitud" returnType="void" visibility="public">
+          <Argument type="java.math.BigDecimal" name="longitud"/>
+        </Method>
+        <Method name="getDescripcion" returnType="String" visibility="public"/>
+        <Method name="setDescripcion" returnType="void" visibility="public">
+          <Argument type="String" name="descripcion"/>
+        </Method>
+        <Method name="getTipo" returnType="String" visibility="public"/>
+        <Method name="setTipo" returnType="void" visibility="public">
+          <Argument type="String" name="tipo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PruebaSAX1" package="" visibility="public" xPosition="177.0" yPosition="316.0">
+      <Fields>
+        <Field name="procesadorXML" type="XMLReader" visibility="package"/>
+        <Field name="gestor" type="GestionContenido" visibility="package"/>
+        <Field name="archivoXML" type="InputSource" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombreArchivo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="andale" returnType="void" visibility="package"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="GestoraConsultas" target="Incidencia" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gestoraConsultas" source="GestionContenido" target="GestoraConsultas" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GestoraSentencias" target="GestoraConexion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gestor" source="PruebaSAX1" target="GestionContenido" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Actualizacion" target="Incidencia" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GestoraConsultas" target="Avion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Actualizacion" target="Avion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gestoraSentencias" source="GestoraConsultas" target="GestoraSentencias" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GestoraConsultas" target="GestoraSentencias" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="actualizacion" source="GestionContenido" target="Actualizacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="incidencia" source="Actualizacion" target="Incidencia" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GestoraActualizacion" target="GestoraConsultas" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gestoraActualizacion" source="GestionContenido" target="GestoraActualizacion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GestoraConsultas" target="GestoraConexion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conexion" source="GestoraConsultas" target="GestoraConexion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="avion" source="Actualizacion" target="Avion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

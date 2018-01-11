@@ -25,5 +25,19 @@
         <copy todir="${build.generated.sources.dir}/jaxb">
             <fileset dir="build/generated/jaxbCache/Atomo"/>
         </copy>
+        <mkdir dir="build/generated/jaxbCache/Corazoncitos"/>
+        <xjc package="Meetic" destdir="build/generated/jaxbCache/Corazoncitos" catalog="catalog.xml">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema file="xml-resources/jaxb/Corazoncitos/Corazoncitos.xsd"/>
+            <depends file="xml-resources/jaxb/Corazoncitos/Corazoncitos.xsd"/>
+            <produces dir="build/generated/jaxbCache/Corazoncitos"/>
+        </xjc>
+        <copy todir="${build.generated.sources.dir}/jaxb">
+            <fileset dir="build/generated/jaxbCache/Corazoncitos"/>
+        </copy>
     </target>
 </project>

@@ -10,4 +10,14 @@
 		</bindings>
 		<catalog/>
 	</schema>
+	<schema type='-xmlschema' package='Meetic' name='Corazoncitos'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='xml-resources/jaxb/Corazoncitos/Corazoncitos.xsd' origLocation='src/Meetic/Corazoncitos.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
 </schemas>

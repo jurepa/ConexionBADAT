@@ -1,0 +1,36 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <!-- XML Schema Generated from XML Document on Thu Jan 11 2018 13:37:20 GMT+0100 (Hora estándar romance) -->
+         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+         <xs:element name="Corazoncitos">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="Persona" maxOccurs="unbounded">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="ID" type="xs:int"></xs:element>
+                                             <xs:element name="nombre" type="xs:string"></xs:element>
+                                             <xs:element name="sexo" type="xs:string"></xs:element>
+                                             <xs:element name="sexoBuscado" type="xs:string"></xs:element>
+                                             <xs:element name="fechaNacimiento" type="xs:date"></xs:element>
+                                             <xs:element name="ingresos" type="xs:double"></xs:element>
+                                             <xs:element name="Preferencias">
+                                                   <xs:complexType>
+                                                         <xs:sequence>
+                                                               <xs:element name="Gusto" maxOccurs="unbounded">
+                                                                     <xs:complexType>
+                                                                           <xs:sequence>
+                                                                                 <xs:element name="Descripcion" type="xs:string"></xs:element>
+                                                                                 <xs:element name="Valor" type="xs:int"></xs:element>
+                                                                           </xs:sequence>
+                                                                     </xs:complexType>
+                                                               </xs:element>
+                                                         </xs:sequence>
+                                                   </xs:complexType>
+                                             </xs:element>
+                                       </xs:sequence>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+   </xs:schema>

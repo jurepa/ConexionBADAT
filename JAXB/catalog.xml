@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/C:/Users/pjarana/Desktop/GitHub/ConexionBADAT/JAXB/../../../marcas/atomos.xsd" uri="xml-resources/jaxb/Atomo/atomos.xsd"/>
+    <system systemId="file:/C:/Users/pjarana/Desktop/GitHub/ConexionBADAT/JAXB/src/Meetic/Corazoncitos.xsd" uri="xml-resources/jaxb/Corazoncitos/Corazoncitos.xsd"/>
 </catalog>

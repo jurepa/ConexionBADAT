@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaxb;
+package Meetic;
 
+import jaxb.*;
 import java.io.File;
 
 
@@ -17,13 +18,13 @@ public class PruebasJAXB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ManejadorAtomos ma = new ManejadorAtomos();
-        File origen = new File("src\\jaxb\\atomos.xml");
-        File destino = new File("src\\jaxb\\masatomos.xml");
+        ManejadorCorazones ma = new ManejadorCorazones();
+        File xml1 = new File("src\\Meetic\\corazonesSolitarios.xml");
+        File xml2 = new File("src\\Meetic\\masCorazones.xml");
         // Cargamos el XML mediante unmarshaling
-        ma.abrirListaAtomosJAXB(origen);
+        ma.abrirListaCorazoncitosJAXB(xml1,xml2);
         // Comprobamos que se ha cargado
-       /* ma.recorreListaAtomos();
+       /* ma.recorreListaCorazoncitos();
         // Ahora vamos a añadir otro átomo
         Atomo nuevoAtomo = new Atomo();
         nuevoAtomo.setNombre("Mentirio");

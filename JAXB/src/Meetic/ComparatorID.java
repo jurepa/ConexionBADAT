@@ -17,8 +17,11 @@ import java.util.function.ToLongFunction;
  */
 public class ComparatorID implements Comparator {
 
-    public int compare(Corazoncitos.Persona p1, Corazoncitos.Persona p2) 
-    {
+
+    @Override
+    public int compare(Object persona1, Object persona2) {
+        Corazoncitos.Persona p1=(Corazoncitos.Persona)persona1;
+        Corazoncitos.Persona p2=(Corazoncitos.Persona)persona2;
         int compare=0;
         if(p1.id>p2.id)
         {
@@ -29,11 +32,6 @@ public class ComparatorID implements Comparator {
             compare=-1;
         }
         return compare;
-    }
-
-    @Override
-    public int compare(Object t, Object t1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

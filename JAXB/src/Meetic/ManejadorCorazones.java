@@ -8,7 +8,8 @@ import javax.xml.bind.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import Meetic.Corazoncitos;
+import java.util.ArrayList;
 /**
  *
  * @author Leo
@@ -16,20 +17,20 @@ import java.util.logging.Logger;
 public class ManejadorCorazones {
     Corazoncitos listaCorazoncitos;
     Corazoncitos listaMasCorazoncitos;
-    Corazoncitos listaCorazonesFusionados;
+    ArrayList<Corazoncitos.Persona> listaCorazonesFusionados;
     ComparatorID comparator;
     public void abrirListaCorazoncitosJAXB (File corazoncitosXML, File masCorazoncitosXML ){
         JAXBContext contexto;
         try {
             comparator=new ComparatorID();
-            listaCorazonesFusionados=new Corazoncitos();
-            contexto = JAXBContext.newInstance(Atomos.class);
+            listaCorazonesFusionados=new ArrayList<Corazoncitos.Persona>();
+            contexto = JAXBContext.newInstance(Corazoncitos.class);
             Unmarshaller u = contexto.createUnmarshaller();
             listaCorazoncitos = (Corazoncitos) u.unmarshal(corazoncitosXML);
             listaMasCorazoncitos=(Corazoncitos) u.unmarshal(masCorazoncitosXML);
-            listaCorazonesFusionados.persona.addAll(listaCorazoncitos.persona);
-            listaCorazonesFusionados.persona.addAll(listaMasCorazoncitos.persona);
-            listaCorazonesFusionados.persona.sort(comparator);
+            listaCorazonesFusionados.addAll(listaCorazoncitos.persona);
+            listaCorazonesFusionados.addAll(listaMasCorazoncitos.persona);
+            listaCorazonesFusionados.sort(comparator);
         }catch (Exception ex){
             ex.printStackTrace();
         }

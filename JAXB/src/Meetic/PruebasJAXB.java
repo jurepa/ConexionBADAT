@@ -21,17 +21,14 @@ public class PruebasJAXB {
         ManejadorCorazones ma = new ManejadorCorazones();
         File xml1 = new File("src\\Meetic\\corazonesSolitarios.xml");
         File xml2 = new File("src\\Meetic\\masCorazones.xml");
+        File xmlDestino=new File("src\\Meetic\\corazonesFusionados.xml");
         // Cargamos el XML mediante unmarshaling
         ma.abrirListaCorazoncitosJAXB(xml1,xml2);
         // Comprobamos que se ha cargado
-       /* ma.recorreListaCorazoncitos();
+        ma.recorreListaCorazoncitos();
         // Ahora vamos a añadir otro átomo
-        Atomo nuevoAtomo = new Atomo();
-        nuevoAtomo.setNombre("Mentirio");
-        nuevoAtomo.setSimbolo("Mt");
-        nuevoAtomo.setNumeroAtomico(111);
-        ma.anadirAtomo (nuevoAtomo);
+
         // Y generamso un nuevo XML mediante marshaling
-        ma.guardarListaAtomos(destino);*/
+        ma.guardarListaAtomos(xmlDestino);
     }
 }

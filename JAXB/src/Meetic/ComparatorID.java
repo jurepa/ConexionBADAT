@@ -6,67 +6,26 @@
 package Meetic;
 
 import java.util.Comparator;
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToIntFunction;
-import java.util.function.ToLongFunction;
+
 
 /**
  *
  * @author pjarana
  */
-public class ComparatorID implements Comparator {
+public class ComparatorID implements Comparator<Corazoncitos.Persona> {
 
 
     @Override
-    public int compare(Object persona1, Object persona2) {
-        Corazoncitos.Persona p1=(Corazoncitos.Persona)persona1;
-        Corazoncitos.Persona p2=(Corazoncitos.Persona)persona2;
+    public int compare(Corazoncitos.Persona persona1, Corazoncitos.Persona persona2) {
         int compare=0;
-        if(p1.id>p2.id)
+        if(persona1.id>persona2.id)
         {
             compare=1;
         }
-        else if(p1.id<p2.id)
+        else if(persona1.id<persona2.id)
         {
             compare=-1;
         }
         return compare;
-    }
-
-    @Override
-    public Comparator reversed() {
-        return Comparator.super.reversed(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparing(Comparator cmprtr) {
-        return Comparator.super.thenComparing(cmprtr); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparing(Function fnctn, Comparator cmprtr) {
-        return Comparator.super.thenComparing(fnctn, cmprtr); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparing(Function fnctn) {
-        return Comparator.super.thenComparing(fnctn); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparingInt(ToIntFunction tif) {
-        return Comparator.super.thenComparingInt(tif); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparingLong(ToLongFunction tlf) {
-        return Comparator.super.thenComparingLong(tlf); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Comparator thenComparingDouble(ToDoubleFunction tdf) {
-        return Comparator.super.thenComparingDouble(tdf); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }  
 }

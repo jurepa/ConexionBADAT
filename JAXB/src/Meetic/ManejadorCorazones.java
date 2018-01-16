@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Meetic.Corazoncitos;
 import java.util.ArrayList;
+import java.util.Comparator;
 /**
  *
  * @author Leo
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 public class ManejadorCorazones {
     Corazoncitos listaCorazoncitos;
     Corazoncitos listaMasCorazoncitos;
+    Corazoncitos corazonFusionao;
     ArrayList<Corazoncitos.Persona> listaCorazonesFusionados;
     ComparatorID comparator;
     public void abrirListaCorazoncitosJAXB (File corazoncitosXML, File masCorazoncitosXML ){
         JAXBContext contexto;
         try {
+            corazonFusionao=new Corazoncitos();
             comparator=new ComparatorID();
             listaCorazonesFusionados=new ArrayList<Corazoncitos.Persona>();
             contexto = JAXBContext.newInstance(Corazoncitos.class);
@@ -37,7 +40,7 @@ public class ManejadorCorazones {
     }
     public void recorreListaCorazoncitos(){
         PersonaEscribible p;
-        List<Corazoncitos.Persona> miListaCorazoncitos = listaCorazoncitos.getPersona();
+        List<Corazoncitos.Persona> miListaCorazoncitos = new ArrayList<Corazoncitos.Persona>(listaCorazonesFusionados);
         for(Corazoncitos.Persona c:miListaCorazoncitos){
             p = new PersonaEscribible(c);
             System.out.println("\nSiguiente elemento\n----------------------------------------------");
@@ -50,13 +53,14 @@ public class ManejadorCorazones {
     public void guardarListaAtomos(File archivoXML){
         JAXBContext contexto;
         try {
-            contexto = JAXBContext.newInstance(Atomos.class);
+            corazonFusionao.setPersona(listaCorazonesFusionados);
+            contexto = JAXBContext.newInstance(Corazoncitos.class);
             Marshaller marshalero = contexto.createMarshaller();
             marshalero.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             StringWriter escribiente = new StringWriter();
-            marshalero.marshal(listaCorazoncitos, archivoXML);
+            marshalero.marshal(corazonFusionao, archivoXML);
             // ahora lo marshaleamos a un stream para visualizarlo
-            marshalero.marshal(listaCorazoncitos, escribiente);
+            marshalero.marshal(corazonFusionao, escribiente);
             System.out.println("-----------------");
             System.out.println("Object2XML:");
             System.out.println(escribiente.toString());

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23-ene-2018 8:49:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.AsFabricantes" table="AS_Fabricantes" schema="dbo" catalog="AirSafety" optimistic-lock="version">
+        <id name="idFabricante" type="byte">
+            <column name="ID_Fabricante" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="25" not-null="true" />
+        </property>
+        <set name="asAvioneses" table="AS_Aviones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Fabricante" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.AsAviones" />
+        </set>
+    </class>
+</hibernate-mapping>

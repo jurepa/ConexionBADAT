@@ -5,6 +5,15 @@
  */
 package hibernate;
 
+
+import java.util.Iterator;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+
+
 /**
  *
  * @author pjarana
@@ -15,7 +24,17 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        SessionFactory sesionBeta= HibernateUtil.getSessionFactory();
+        Session sesion=sesionBeta.openSession();
+        Query q=sesion.createQuery("from ASAviones");
+        List<ASAviones>aviones=q.list();
+        ASAviones a;
+        while(aviones.hasNext())
+        {
+             a=aviones.next();
+        }
+        sesion.close();
     }
     
 }

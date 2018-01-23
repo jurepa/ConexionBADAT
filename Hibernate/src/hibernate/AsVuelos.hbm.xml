@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23-ene-2018 8:49:57 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.AsVuelos" table="AS_Vuelos" schema="dbo" catalog="AirSafety" optimistic-lock="version">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="asAeropuertosByAeropuertoSalida" class="hibernate.AsAeropuertos" fetch="select">
+            <column name="Aeropuerto_Salida" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="asAeropuertosByAeropuertoLlegada" class="hibernate.AsAeropuertos" fetch="select">
+            <column name="Aeropuerto_Llegada" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="asAviones" class="hibernate.AsAviones" fetch="select">
+            <column name="Matricula_Avion" length="10" not-null="true" />
+        </many-to-one>
+        <property name="salida" type="timestamp">
+            <column name="Salida" length="16" not-null="true" />
+        </property>
+        <property name="llegada" type="timestamp">
+            <column name="Llegada" length="16" not-null="true" />
+        </property>
+        <property name="precioPasaje" type="big_decimal">
+            <column name="Precio_Pasaje" precision="10" scale="4" />
+        </property>
+    </class>
+</hibernate-mapping>

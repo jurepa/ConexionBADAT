@@ -28,12 +28,17 @@ public class main {
         SessionFactory sesionBeta= HibernateUtil.getSessionFactory();
         Session sesion=sesionBeta.openSession();
         Query q=sesion.createQuery("from ASAviones");
+        //Iterator<ASAviones>aviones=q.iterate();
         List<ASAviones>aviones=q.list();
         ASAviones a;
         while(aviones.hasNext())
         {
-             a=aviones.next();
+             a=(ASAviones)aviones.next();
         }
+        /*for(int i=0;i<aviones.size();i++)
+        {
+             a=(ASAviones)aviones.get(i);
+        }*/
         sesion.close();
     }
     

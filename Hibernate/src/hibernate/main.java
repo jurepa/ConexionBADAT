@@ -29,7 +29,7 @@ public class main {
         Session sesion=sesionBeta.openSession();
         Query q=sesion.createQuery("from ASAviones");
         //Iterator<ASAviones>aviones=q.iterate();
-        List<ASAviones>aviones=q.list();
+        Iterator<ASAviones>aviones=q.iterate();
         ASAviones a;
         while(aviones.hasNext())
         {

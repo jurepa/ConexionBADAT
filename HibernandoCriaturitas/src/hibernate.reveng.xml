@@ -40,10 +40,7 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="AirSafety" match-schema="dbo"/>
-  <table-filter match-name="AS_Vuelos"/>
-  <table-filter match-name="AS_Aviones"/>
-  <table-filter match-name="AS_Fabricantes"/>
-  <table-filter match-name="AS_Incidencias"/>
-  <table-filter match-name="AS_Aeropuertos"/>
+  <schema-selection match-catalog="Ejemplos" match-schema="dbo"/>
+  <table-filter match-name="Criaturitas"/>
+  <table-filter match-name="Regalos"/>
 </hibernate-reverse-engineering>

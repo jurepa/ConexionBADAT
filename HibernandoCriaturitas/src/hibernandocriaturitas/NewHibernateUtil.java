@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hibernate;
+package hibernandocriaturitas;
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
  *
  * @author pjarana
  */
-public class HibernateUtil {
+public class NewHibernateUtil {
 
     private static final SessionFactory sessionFactory;
     

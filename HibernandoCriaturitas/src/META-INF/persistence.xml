@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="HibernatePU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="HibernandoCriaturitasPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>hibernate.Pokemons</class>
+    <class>hibernandocriaturitas.Regalos</class>
+    <class>hibernandocriaturitas.Criaturitas</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Pokemon"/>
-      <property name="javax.persistence.jdbc.user" value="pepito"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Ejemplos"/>
+      <property name="javax.persistence.jdbc.user" value="prueba"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
       <property name="javax.persistence.jdbc.password" value="123"/>
     </properties>

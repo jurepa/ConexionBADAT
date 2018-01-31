@@ -5,9 +5,9 @@
  */
 package hibernandocriaturitas;
 
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.util.*;
+import javax.persistence.TypedQuery;
+import org.hibernate.*;
 
 /**
  *
@@ -55,13 +55,13 @@ public class ManejadorCriaturitas {
         return nene;
     }
     public List<Criaturitas> getCriaturitas(){
-        TypedQuery  consulta;
+        Query  consulta;
         List<Criaturitas> todasCria;
         // No necesitamos datos de la conexion porque ya están definidos en el hibernate.cfg.xml
         Session ses = NewHibernateUtil.getSessionFactory().openSession();
         String ordenConsulta ="from Criaturitas";
         consulta = ses.createQuery(ordenConsulta);
-        todasCria=consulta.getResultList();
+        todasCria=consulta.list();
         ses.close();
         return todasCria;
 

@@ -183,7 +183,7 @@ public class Regalos implements Serializable {
 
     @Override
     public String toString() {
-        return "hibernandocriaturitas.Regalos[ id=" + id + " ]";
+        return "ID:"+ this.id+" Denominacion:"+this.denominacion+" ID_Criaturita:"+this.goesTo;
     }
     
 }

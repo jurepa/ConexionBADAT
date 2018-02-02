@@ -26,6 +26,16 @@ public class ManejadorCriaturitas {
         tran.commit();
         ses.close();
     }
+    public Collection<Regalos> getRegalosCriaturita(Short id)
+    {
+        
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        Query consulta = ses.createQuery("from Regalos where goesTo=:id");
+        consulta.setShort("id", id);
+        List<Regalos> regalos=consulta.list();
+        ses.close();
+        return regalos;
+    }
     public void cambiarNombre (String nombre, Short id){
         Criaturitas nene;
         Transaction tran;
@@ -47,7 +57,7 @@ public class ManejadorCriaturitas {
         tran.commit();
         ses.close();
     }
-    public Criaturitas recuperar (Short id){
+    public Criaturitas getCriaturitaPorId (Short id){
         Criaturitas nene;
         Session ses = NewHibernateUtil.getSessionFactory().openSession();
         nene = (Criaturitas)ses.get(Criaturitas.class, id);

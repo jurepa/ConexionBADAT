@@ -26,7 +26,60 @@ public class ManejadorCriaturitas {
         tran.commit();
         ses.close();
     }
-    public Collection<Regalos> getRegalosCriaturita(Short id)
+    
+    public void crearCriaturitaConRegalos(Criaturitas criaturita, Regalos regalo1, Regalos regalo2)
+    {
+        Transaction tran;
+        regalo1.setGoesTo(criaturita);
+        regalo2.setGoesTo(criaturita);
+        criaturita.setRegalosCollection(new ArrayList<Regalos>());
+        criaturita.getRegalosCollection().add(regalo1);
+        criaturita.getRegalosCollection().add(regalo2);
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        //tran = ses.beginTransaction();
+        ses.save(criaturita);
+        ses.save(regalo1);
+        ses.save(regalo2);
+        //tran.commit(); Me da problemas la transaccion, se queda colgado el hibernate
+        ses.close();
+    }
+    
+    public void crearRegaloYAsignar(Regalos regalo, Short idCriaturita)
+    {
+    }
+    
+    public void deleteCriaturitaConRegalos(Short idCriaturita)
+    {
+        Criaturitas nene;
+        Transaction tran;
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        tran = ses.beginTransaction();
+        List<Regalos>regalitos=(List<Regalos>) getRegalosCriaturita(idCriaturita);
+        for(int i=0;i<regalitos.size();i++)
+        {
+            Regalos regalo=regalitos.get(i);
+            ses.delete(regalo);    
+        }
+        nene = new Criaturitas (idCriaturita);
+        ses.delete (nene);
+        tran.commit();
+        ses.close();
+    }
+    
+    public void cambiarPropietarioRegalo(Short idRegalo, Short idCriaturita)
+    {
+        Transaction t;
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        t=ses.beginTransaction();
+        Criaturitas criaturitaDestino= getCriaturitaPorId(idCriaturita);
+        Regalos regalo=new ManejadorRegalos().getRegaloPorId(idRegalo);
+        regalo.setGoesTo(criaturitaDestino);
+        ses.update(regalo);
+        t.commit();
+        ses.close();
+    }
+        
+        public Collection<Regalos> getRegalosCriaturita(Short id)
     {
         
         Session ses = NewHibernateUtil.getSessionFactory().openSession();

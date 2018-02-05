@@ -61,7 +61,7 @@ public class Regalos implements Serializable {
     @Basic(optional = false)
     @Column(name = "Precio")
     private BigDecimal precio;
-    @Column(name = "Superficie")
+    @Column(name = "Superficie",updatable = false,insertable = false)
     private Short superficie;
     @JoinColumn(name = "GoesTo", referencedColumnName = "ID")
     @ManyToOne

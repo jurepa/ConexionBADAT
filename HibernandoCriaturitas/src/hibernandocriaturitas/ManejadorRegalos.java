@@ -5,14 +5,20 @@
  */
 package hibernandocriaturitas;
 
+import org.hibernate.Session;
+
 /**
  *
  * @author pjarana
  */
 public class ManejadorRegalos {
     
-    public void crearRegalo()
+    public Regalos getRegaloPorId(Short idRegalo)
     {
-    
+        Regalos regalo;
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        regalo = (Regalos)ses.get(Regalos.class, idRegalo);
+        ses.close();
+        return regalo;
     }
 }

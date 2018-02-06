@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,7 +39,7 @@ public class Criaturitas implements Serializable {
     private Short id;
     @Column(name = "Nombre")
     private String nombre;
-    @OneToMany(mappedBy = "goesTo")
+    @OneToMany(mappedBy = "goesTo", fetch = FetchType.EAGER)
     private Collection<Regalos> regalosCollection;
 
     public Criaturitas() {

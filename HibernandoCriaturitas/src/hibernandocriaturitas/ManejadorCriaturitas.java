@@ -46,6 +46,24 @@ public class ManejadorCriaturitas {
     
     public void crearRegaloYAsignar(Regalos regalo, Short idCriaturita)
     {
+        Transaction tran;
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        Criaturitas criaturita=getCriaturitaPorId(idCriaturita);
+        tran=ses.beginTransaction();
+        regalo.setGoesTo(criaturita);
+        if(criaturita.getRegalosCollection()==null) //Si no tiene ningun regalo asignado
+        {
+            criaturita.setRegalosCollection(new ArrayList<Regalos>());
+            criaturita.getRegalosCollection().add(regalo);
+        }
+        else
+        {
+            Hibernate.initialize(criaturita.getRegalosCollection().add(regalo));
+        }
+        ses.save(regalo);
+        ses.update(criaturita);
+        tran.commit();
+        ses.close();
     }
     
     public void deleteCriaturitaConRegalos(Short idCriaturita)

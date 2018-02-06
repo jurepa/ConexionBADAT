@@ -6,6 +6,7 @@
 package hibernandocriaturitas;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -20,5 +21,16 @@ public class ManejadorRegalos {
         regalo = (Regalos)ses.get(Regalos.class, idRegalo);
         ses.close();
         return regalo;
+    }
+    
+    public void deleteRegalo(Short idRegalo)
+    {
+        Transaction tran;
+        Session ses = NewHibernateUtil.getSessionFactory().openSession();
+        tran=ses.beginTransaction();
+        Regalos regalo=getRegaloPorId(idRegalo);
+        ses.delete(regalo);
+        tran.commit();
+        ses.close();
     }
 }

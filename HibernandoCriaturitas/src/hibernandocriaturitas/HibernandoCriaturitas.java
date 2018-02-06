@@ -19,6 +19,10 @@ public class HibernandoCriaturitas {
     public static void main(String[] args) {
         final Short idCriaturita = 2, idRegalo=13, idCriaturitaNueva=40, idRegalo1=30, idRegalo2=31;
         final String nombre = "Violeta";
+        ManejadorCriaturitas mc = new ManejadorCriaturitas();
+        ManejadorRegalos mr=new ManejadorRegalos();
+        
+        //Sets regalitos y criaturitas
         Criaturitas criaturita=new Criaturitas(idCriaturitaNueva);
         criaturita.setId(idCriaturitaNueva);
         criaturita.setNombre("Jarana");
@@ -38,18 +42,19 @@ public class HibernandoCriaturitas {
         regalo2.setLargo(idRegalo);
         regalo2.setTipo('M');
         regalo2.setPrecio(new BigDecimal(20));
-        ManejadorCriaturitas mc = new ManejadorCriaturitas();
+        //Fin sets regalitos y criaturitas
+        
+        
+        //Pruebas
         mc.cambiarPropietarioRegalo(idRegalo,idCriaturita);
         mc.crearCriaturitaConRegalos(criaturita, regalo1, regalo2);
         mc.deleteCriaturitaConRegalos(idCriaturitaNueva);
-        //mc.borrar(otro);
-        //mc.crearCriaturita("Pepe",id);
-        //mc.borrar(id);
-        //mc.listaCriaturitas(mc.getCriaturitas());
-        //System.out.println(mc.cadenaCriaturita(mc.getCriaturitaPorId(id)));
-        //mc.cambiarNombre(nombre, id);
-        //System.out.println("\n---------------------------\n"+mc.cadenaCriaturita(mc.recuperar(id)));
+        mc.crearRegaloYAsignar(regalo2, idCriaturita);    
         System.out.println(mc.getRegalosCriaturita(idCriaturita).toString());
+        mr.deleteRegalo(idRegalo2);
+        //System.out.println("Borrado");
+        //Fin_Pruebas
+        
     }
     
 }

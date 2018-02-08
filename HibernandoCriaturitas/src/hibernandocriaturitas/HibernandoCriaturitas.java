@@ -17,7 +17,7 @@ public class HibernandoCriaturitas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final Short idCriaturita = 2, idRegalo=13, idCriaturitaNueva=40, idRegalo1=30, idRegalo2=31;
+        final Short idCriaturita = 3, idRegalo=4, idCriaturitaNueva=40, idRegalo1=30, idRegalo2=31;
         final String nombre = "Violeta";
         ManejadorCriaturitas mc = new ManejadorCriaturitas();
         ManejadorRegalos mr=new ManejadorRegalos();
@@ -47,11 +47,12 @@ public class HibernandoCriaturitas {
         
         //Pruebas
         mc.cambiarPropietarioRegalo(idRegalo,idCriaturita);
-        mc.crearCriaturitaConRegalos(criaturita, regalo1, regalo2);
+        System.out.print(mc.getCriaturitaPorId(idCriaturita).getRegalosCollection().toString());
+        /*mc.crearCriaturitaConRegalos(criaturita, regalo1, regalo2);
         mc.deleteCriaturitaConRegalos(idCriaturitaNueva);
         mc.crearRegaloYAsignar(regalo2, idCriaturita);    
         System.out.println(mc.getRegalosCriaturita(idCriaturita).toString());
-        mr.deleteRegalo(idRegalo2);
+        mr.deleteRegalo(idRegalo2);*/
         //System.out.println("Borrado");
         //Fin_Pruebas
         

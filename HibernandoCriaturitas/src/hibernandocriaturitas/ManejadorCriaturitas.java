@@ -91,8 +91,9 @@ public class ManejadorCriaturitas {
         t=ses.beginTransaction();
         Criaturitas criaturitaDestino= getCriaturitaPorId(idCriaturita);
         Regalos regalo=new ManejadorRegalos().getRegaloPorId(idRegalo);
+        Criaturitas criaturitaVieja=regalo.getGoesTo();
         regalo.setGoesTo(criaturitaDestino);
-        ses.update(regalo);
+        ses.update(regalo);       
         t.commit();
         ses.close();
     }

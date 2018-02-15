@@ -43,8 +43,7 @@ public class HibernandoCriaturitas {
         regalo2.setTipo('M');
         regalo2.setPrecio(new BigDecimal(20));
         //Fin sets regalitos y criaturitas
-        
-        
+
         //Pruebas
         mc.cambiarPropietarioRegalo(idRegalo,idCriaturita);
         System.out.print(mc.getCriaturitaPorId(idCriaturita).getRegalosCollection().toString());
